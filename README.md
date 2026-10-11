@@ -15,9 +15,9 @@ ClickyCanvas 是一个中文优先、可本地运行的电商客服 Agent 原型
 
 这是一个**演示型原型**：商品、订单、政策和售后案件均为虚构数据，不会真实收款、发货、退款或连接人工客服系统。
 
-## 3 分钟演示路径
+## 功能体验路径
 
-启动后打开 <http://127.0.0.1:8000>，可以按下面顺序操作：
+启动本地服务后，在运行服务的电脑上访问 `http://127.0.0.1:8000`，可以按下面顺序操作。这个地址是本机回环地址，GitHub 访客无法直接打开；如需在线体验，需要另外部署并提供公开网址：
 
 | 步骤 | 输入示例 | 可观察行为 |
 | --- | --- | --- |
@@ -78,11 +78,13 @@ python -m uvicorn app.main:app --reload
 ```powershell
 $env:LLM_MODE = "deterministic"
 $env:EMBEDDING_API_KEY = ""
-python -m pytest -q
+python -m pytest -q tests/test_catalog_import.py tests/test_emotion.py tests/test_evaluation.py tests/test_holdout.py tests/test_memory.py tests/test_retrieval.py tests/test_shopping.py tests/test_tools.py
 python scripts/evaluate_demo.py
 python scripts/evaluate_shopping.py
 python scripts/evaluate_retrieval.py --json
 ```
+
+上面的测试命令覆盖核心目录、路由、检索、选购、工具和评估回归；API 首页和健康检查也可以在服务启动后按 `http://127.0.0.1:8000/health` 验证。
 
 评测数字只说明覆盖到的本地行为符合预期，不能证明真实用户满意度、线上转化率、生产 SLA 或跨商家泛化能力。
 
@@ -99,7 +101,7 @@ python scripts/evaluate_retrieval.py --json
 ```text
 app/       FastAPI、Agent、工具、检索、模型和数据库实现
 data/      虚构商品、订单、政策 FAQ 和评估案例
-docs/      产品规格、架构取舍、评估报告和演示脚本
+docs/      产品规格、架构取舍、评估报告和维护说明
 scripts/   目录导入、快照同步和评估命令
 static/    单页聊天 Demo
 tests/     目录、Agent、API、检索和边界回归测试

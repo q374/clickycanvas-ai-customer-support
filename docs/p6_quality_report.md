@@ -8,10 +8,10 @@
 
 ## 评测版本
 
-| 版本 | 配置 | 代码提交/工作树 | 评测日期 |
+| 版本 | 配置 | 评测环境 | 评测日期 |
 | --- | --- | --- | --- |
-| deterministic | 本地规则路由；6 款演示商品、5 份政策文档、7 条模拟订单 | `master`，修复提交 `a7d880d` | 2026-10-10 |
-| DeepSeek | `deepseek-flash`；JSON 输出、思考模式关闭 | `master`，修复提交 `a7d880d` | 2026-10-10 |
+| deterministic | 本地规则路由；6 款演示商品、5 份政策文档、7 条模拟订单 | 本地 deterministic 评测版本 | 2026-10-10 |
+| DeepSeek | `deepseek-flash`；JSON 输出、思考模式关闭 | 本地 DeepSeek 评测版本 | 2026-10-10 |
 
 ## 盲测集（P6.1）
 
@@ -148,5 +148,5 @@ python scripts/evaluate_simulated_experience.py --mode deterministic
 - 本轮离线 holdout runner 直接记录结构化逐轮结果，未把直调 `SupportAgent` 的离线调用写入 `/api/traces`；因此 badcase 聚合以同口径逐轮报告为准。若后续需要线上体验观测，可在 P6.6 后补充 trace 聚合，不影响本轮结论。
 - P6.5：在没有独立试用者的情况下完成 5 个开发者模拟任务；任务完成率 100%，必要条件违反和无依据承诺均为 0，内部帮助性评分均值 4.4/5。该结果明确标为开发者模拟，不能写成用户满意度。
 - P6.6：完成 60 案例自动挑战评估和 12 题单人 A/B 盲评。盲评暴露的问题已完成最小修复；原盲评分数仍是修复前基线，不能直接当作修复后效果。
-- 下一步进入 P6.7：整理一页 PRD、一页前后指标、一页架构取舍和 3 分钟演示脚本；所有数字引用本报告、`docs/independent_review_sheet.md` 或 `data/runtime/` 结果文件，并明确证据等级。若需要量化修复后体验，再用同一盲评表重新抽样评分。
+- 下一步进入 P6.7：整理产品规格、前后指标和架构取舍；所有数字引用本报告、`docs/independent_review_sheet.md` 或本地 `data/runtime/` 结果文件，并明确证据等级。若需要量化修复后体验，再用同一盲评表重新抽样评分。
 
