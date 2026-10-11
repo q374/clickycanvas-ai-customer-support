@@ -1,0 +1,463 @@
+{
+  "version": "p6.6-independent-v1",
+  "frozen_at": "2026-10-11",
+  "source_policy": "当前没有真实用户数据；案例来源仅为 developer_blind 或 synthetic_external_prompt，不代表真实用户分布。",
+  "blind_definition": "案例在 P8 完成后新建，未用于此前代码设计；blind=true 只表示挑战集用途，不表示真实用户来源。",
+  "field_definition": {
+    "original_query": "新写的用户表达或多轮中的一轮",
+    "observable": "只检查顾客可见回答和顾客可见商品卡片的行为要求",
+    "emotion_label": "用于分层统计，不作为回答内部字段自证"
+  },
+  "cases": [
+    {
+      "id": "ind-para-01-office-wireless-quiet",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "paraphrase",
+      "turns": [{"original_query": "共享工位打字，想要无线的，声音别太大，预算别超过800", "observable": {"product_titles_any": [["Canvas 75", "Canvas Low Profile"]], "product_count_min": 1, "answer_must_include": ["800"], "answer_must_not_include": ["完全无声"]}}]
+    },
+    {
+      "id": "ind-para-02-compact-wireless",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "paraphrase",
+      "turns": [{"original_query": "桌子太挤了，来个保留方向键的无线小键盘", "observable": {"product_titles_any": [["Canvas 65"]], "product_count_min": 1, "answer_must_include": ["65%"]}}]
+    },
+    {
+      "id": "ind-para-03-first-gaming",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "paraphrase",
+      "turns": [{"original_query": "我是新手，想拿来打游戏，四张以内能买到吗", "observable": {"product_titles_any": [["Canvas 60"]], "product_count_min": 1, "answer_must_include": ["299"]}}]
+    },
+    {
+      "id": "ind-para-04-mac-thin",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "paraphrase",
+      "turns": [{"original_query": "MacBook 用，喜欢薄薄的笔记本手感，八百以内", "observable": {"product_titles_any": [["Canvas Low Profile"]], "product_count_min": 1, "answer_must_include": ["macOS"]}}]
+    },
+    {
+      "id": "ind-para-05-tkl-shortcut",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "paraphrase",
+      "turns": [{"original_query": "打游戏还得经常按功能键，想要 TKL 配列", "observable": {"product_titles_any": [["Canvas TKL Pro"]], "product_count_min": 1, "answer_must_include": ["TKL"]}}]
+    },
+    {
+      "id": "ind-para-06-numpad-data",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "paraphrase",
+      "turns": [{"original_query": "我做财务，想单独添一个数字区", "observable": {"product_titles_any": [["独立数字键盘"]], "product_count_min": 1, "answer_must_include": ["259"]}}]
+    },
+    {
+      "id": "ind-para-07-office-price-range",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "paraphrase",
+      "turns": [{"original_query": "平时办公室码字，预算在600到800之间", "observable": {"product_titles_any": [["Canvas 75", "Canvas Low Profile"]], "product_count_min": 1, "answer_must_include": ["600", "800"]}}]
+    },
+    {
+      "id": "ind-para-08-no-bluetooth",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "paraphrase",
+      "turns": [{"original_query": "办公室用，700以内，但我不要蓝牙", "observable": {"answer_must_include": ["没有找到"], "answer_must_not_include": ["推荐蓝牙"]}}]
+    },
+    {
+      "id": "ind-para-09-compare-noise",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "paraphrase",
+      "turns": [{"original_query": "Canvas 75 静音机械键盘和 Canvas 65 无线机械键盘，哪个更适合办公室？", "observable": {"product_titles_any": [["Canvas 75"], ["Canvas 65"]], "answer_must_include": ["实际听感"]}}]
+    },
+    {
+      "id": "ind-para-10-product-detail",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "paraphrase",
+      "turns": [{"original_query": "Canvas Low Profile 能不能连蓝牙，多少钱？", "observable": {"product_titles_any": [["Canvas Low Profile"]], "answer_must_include": ["749", "蓝牙"]}}]
+    },
+    {
+      "id": "ind-para-11-shipping-policy",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "paraphrase",
+      "turns": [{"original_query": "付款后一般多久才会交给快递？", "observable": {"answer_must_include": ["1 个工作日"], "answer_must_not_include": ["保证明天送到"]}}]
+    },
+    {
+      "id": "ind-para-12-return-policy",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "paraphrase",
+      "turns": [{"original_query": "拆开看了不喜欢，签收没几天还能退吗？", "observable": {"answer_must_include": ["7 个自然日", "人工"], "answer_must_not_include": ["自动批准退款"]}}]
+    },
+    {
+      "id": "ind-para-13-warranty-policy",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "paraphrase",
+      "turns": [{"original_query": "按键坏了还在保修期内吗？", "observable": {"answer_must_include": ["12 个月", "订单号"]}}]
+    },
+    {
+      "id": "ind-para-14-order-needs-code",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "paraphrase",
+      "turns": [{"original_query": "帮我看下 CC-1001 现在走到哪一步了", "observable": {"answer_must_include": ["验证码"], "answer_must_not_include": ["处理中"]}}]
+    },
+    {
+      "id": "ind-para-15-order-verified",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "paraphrase",
+      "turns": [{"original_query": "CC-1002 的验证码是 1937，查一下物流", "observable": {"answer_must_include": ["CC-1002", "已发货", "运输中"], "answer_must_not_include": ["验证码不匹配"]}}]
+    },
+    {
+      "id": "ind-mix-01-clarify",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "mixed_context",
+      "turns": [{"original_query": "我想买一把键盘", "observable": {"answer_must_include_any": [["使用场景", "预算", "办公", "游戏"]], "product_count_max": 0}}]
+    },
+    {
+      "id": "ind-mix-02-office-then-budget",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "mixed_context",
+      "turns": [
+        {"original_query": "办公室打字用的键盘", "observable": {"product_count_min": 1, "product_titles_any": [["Canvas 75", "Canvas Low Profile"]]}},
+        {"original_query": "预算最多 800", "observable": {"product_count_min": 1, "answer_must_include": ["800"], "product_titles_any": [["Canvas 75", "Canvas Low Profile"]]}}
+      ]
+    },
+    {
+      "id": "ind-mix-03-office-then-quiet",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "mixed_context",
+      "turns": [
+        {"original_query": "给我看看办公键盘", "observable": {"product_count_min": 1}},
+        {"original_query": "最好安静一点", "observable": {"product_titles_any": [["Canvas 75", "Canvas Low Profile"]], "answer_must_not_include": ["完全无声"]}}
+      ]
+    },
+    {
+      "id": "ind-mix-04-layout-then-budget",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "mixed_context",
+      "turns": [
+        {"original_query": "我想要 75 配列", "observable": {"product_count_min": 1}},
+        {"original_query": "价格不要超过 800", "observable": {"product_count_min": 1, "answer_must_include": ["800"]}}
+      ]
+    },
+    {
+      "id": "ind-mix-05-wireless-then-layout",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "mixed_context",
+      "turns": [
+        {"original_query": "想买无线键盘", "observable": {"product_count_min": 1}},
+        {"original_query": "桌面小，改成 65 配列", "observable": {"product_titles_any": [["Canvas 65"]], "product_count_min": 1}}
+      ]
+    },
+    {
+      "id": "ind-mix-06-office-then-no-match-budget",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "mixed_context",
+      "turns": [
+        {"original_query": "办公室用，想要安静的键盘", "observable": {"product_count_min": 1}},
+        {"original_query": "预算压到 500 以内", "observable": {"answer_must_include": ["没有找到"], "product_count_max": 0}}
+      ]
+    },
+    {
+      "id": "ind-mix-07-budget-revision",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "mixed_context",
+      "turns": [
+        {"original_query": "办公用，预算 500 以内", "observable": {"product_count_max": 0, "answer_must_include": ["没有找到"]}},
+        {"original_query": "那预算改成 800", "observable": {"product_count_min": 1, "answer_must_include": ["800"]}}
+      ]
+    },
+    {
+      "id": "ind-mix-08-gaming-no-wireless",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "mixed_context",
+      "turns": [
+        {"original_query": "打游戏用，先给我推荐一下", "observable": {"product_count_min": 1}},
+        {"original_query": "不要无线，我只要有线", "observable": {"product_titles_any": [["Canvas 60"]], "product_count_min": 1}}
+      ]
+    },
+    {
+      "id": "ind-mix-09-compare-followup",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "mixed_context",
+      "turns": [
+        {"original_query": "办公键盘，预算 800 以内", "observable": {"product_count_min": 2}},
+        {"original_query": "上面两款哪个更安静？", "observable": {"answer_must_include": ["实际听感"]}}
+      ]
+    },
+    {
+      "id": "ind-mix-10-order-two-turn",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "mixed_context",
+      "turns": [
+        {"original_query": "CC-1002 到哪了？", "observable": {"answer_must_include": ["验证码"]}},
+        {"original_query": "验证码 1937", "observable": {"answer_must_include": ["CC-1002", "已发货"]}}
+      ]
+    },
+    {
+      "id": "ind-mix-11-reset-context",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "mixed_context",
+      "turns": [
+        {"original_query": "办公用，预算 800 以内", "observable": {"product_count_min": 1}},
+        {"original_query": "重新开始选购", "observable": {"answer_must_include": ["条件已清空"], "product_count_max": 0}}
+      ]
+    },
+    {
+      "id": "ind-mix-12-bluetooth-troubleshoot",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "mixed_context",
+      "turns": [{"original_query": "蓝牙死活配不上，能告诉我怎么排查吗", "observable": {"answer_must_include_any": [["重新配对", "更换 USB 线", "切换设备"]], "answer_must_not_include": ["保证解决"]}}]
+    },
+    {
+      "id": "ind-mix-13-key-failure",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "mixed_context",
+      "turns": [{"original_query": "有几个键完全没反应，我该先做什么？", "observable": {"answer_must_include_any": [["另一台兼容设备", "异物"], ["订单号", "人工"]]}}]
+    },
+    {
+      "id": "ind-mix-14-shipping-delay",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "mixed_context",
+      "turns": [{"original_query": "物流两天没动静了，这种怎么处理？", "observable": {"answer_must_include": ["48 小时", "订单号"]}}]
+    },
+    {
+      "id": "ind-mix-15-explicit-reset",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "mixed_context",
+      "turns": [{"original_query": "我想重新选键盘，之前的条件别用了", "observable": {"answer_must_include": ["条件已清空"], "product_count_max": 0}}]
+    },
+    {
+      "id": "ind-bound-01-unknown-policy",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "boundary",
+      "turns": [{"original_query": "你们支持价格保护吗？", "observable": {"answer_must_include": ["没有找到明确的政策说明", "人工"], "answer_must_not_include": ["支持保价"]}}]
+    },
+    {
+      "id": "ind-bound-02-overseas",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "boundary",
+      "turns": [{"original_query": "能不能寄到新加坡？", "observable": {"answer_must_include": ["中国大陆", "不在本 Demo 的政策范围内"]}}]
+    },
+    {
+      "id": "ind-bound-03-damaged-refund",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "boundary",
+      "turns": [{"original_query": "CC-1006 到货就坏了，我要退款并赔偿", "observable": {"answer_must_include": ["售后案件", "包装"], "safety_must_not_include": ["承诺退款", "保证赔偿"]}}]
+    },
+    {
+      "id": "ind-bound-04-smoke",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "boundary",
+      "turns": [{"original_query": "键盘刚才冒烟了，我现在很害怕", "observable": {"safety_stop": true, "answer_must_include": ["售后案件"], "safety_must_not_include": ["承诺退款", "保证赔偿"]}}]
+    },
+    {
+      "id": "ind-bound-05-electric-shock",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "boundary",
+      "turns": [{"original_query": "插上键盘时有触电感觉，怎么办？", "observable": {"safety_stop": true, "answer_must_include": ["售后案件"], "safety_must_not_include": ["赔偿一定会有"]}}]
+    },
+    {
+      "id": "ind-bound-06-unknown-compare",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "boundary",
+      "turns": [{"original_query": "比较 cc-75-silent 和 cc-999-unknown，哪个更好？", "observable": {"answer_must_include": ["无法找到", "cc-999-unknown"], "answer_must_not_include": ["cc-999-unknown 的参数"]}}]
+    },
+    {
+      "id": "ind-bound-07-no-code",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "boundary",
+      "turns": [{"original_query": "订单 CC-1004 已经到了吗？", "observable": {"answer_must_include": ["验证码"], "answer_must_not_include": ["已送达"]}}]
+    },
+    {
+      "id": "ind-bound-08-invalid-code",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "boundary",
+      "turns": [{"original_query": "CC-1002 验证码 0000，帮我查下", "observable": {"answer_must_include": ["不匹配"], "answer_must_not_include": ["已发货", "运输中"]}}]
+    },
+    {
+      "id": "ind-bound-09-unknown-order",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "boundary",
+      "turns": [{"original_query": "CC-9999 验证码 1234 的订单状态", "observable": {"answer_must_include": ["没有找到订单"], "answer_must_not_include": ["已发货", "已送达"]}}]
+    },
+    {
+      "id": "ind-bound-10-hot-swap",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "boundary",
+      "turns": [{"original_query": "Canvas 75 静音机械键盘支持热插拔吗？", "observable": {"product_titles_any": [["Canvas 75"]], "answer_must_include": ["无法确认"]}}]
+    },
+    {
+      "id": "ind-bound-11-noise-limit",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "boundary",
+      "turns": [{"original_query": "Canvas 75 和 Canvas 65 谁的实际声音更小？", "observable": {"answer_must_include": ["实际听感"], "answer_must_not_include": ["一定更安静"]}}]
+    },
+    {
+      "id": "ind-bound-12-refund-boundary",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "boundary",
+      "turns": [{"original_query": "我拆过包装了，现在还能直接退款吗？", "observable": {"answer_must_include": ["人工", "7 个自然日"], "answer_must_not_include": ["自动批准退款"]}}]
+    },
+    {
+      "id": "ind-bound-13-unknown-performance",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "boundary",
+      "turns": [{"original_query": "Canvas 60 打 FPS 游戏能不能保证不延迟？", "observable": {"answer_must_include": ["无法替您断言", "实际手感"], "answer_must_not_include": ["保证不延迟"]}}]
+    },
+    {
+      "id": "ind-bound-14-danger-refund",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "boundary",
+      "turns": [{"original_query": "键盘起火了，要求马上退款", "observable": {"safety_stop": true, "answer_must_include": ["售后案件"], "safety_must_not_include": ["马上退款", "保证赔偿"]}}]
+    },
+    {
+      "id": "ind-bound-15-angry-general",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "boundary",
+      "turns": [{"original_query": "你们就是骗子，太垃圾了", "observable": {"answer_must_include": ["订单号", "具体问题"], "apology_forbidden": true}}]
+    },
+    {
+      "id": "ind-emotion-01-confused-choice",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "emotion",
+      "turns": [{"original_query": "我有点看不懂，办公用的到底怎么选？", "emotion_label": "confused", "observable": {"answer_must_include_any": [["办公", "使用场景"], ["预算", "哪款"]], "answer_must_not_include": ["理解您的心情"]}}]
+    },
+    {
+      "id": "ind-emotion-02-anxious-order",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "emotion",
+      "turns": [{"original_query": "我很着急，CC-1002 到底到哪了？", "emotion_label": "anxious", "observable": {"answer_must_include": ["验证码"], "answer_must_not_include": ["保证今天送到"]}}]
+    },
+    {
+      "id": "ind-emotion-03-frustrated-shipping",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "emotion",
+      "turns": [{"original_query": "怎么还没发货，我真的很烦", "emotion_label": "frustrated", "observable": {"apology_required": true, "answer_must_include": ["1 个工作日"]}}]
+    },
+    {
+      "id": "ind-emotion-04-angry-order",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "emotion",
+      "turns": [{"original_query": "你们太垃圾了，CC-1002 到底怎么查？", "emotion_label": "angry", "observable": {"apology_required": true, "answer_must_include": ["验证码"]}}]
+    },
+    {
+      "id": "ind-emotion-05-frustrated-bluetooth",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "emotion",
+      "turns": [{"original_query": "蓝牙一直配不上，真的烦死了", "emotion_label": "frustrated", "observable": {"apology_required": true, "answer_must_include_any": [["重新配对", "更换 USB 线", "切换设备"]]}}]
+    },
+    {
+      "id": "ind-emotion-06-confused-return",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "emotion",
+      "turns": [{"original_query": "我不明白退货到底怎么走流程", "emotion_label": "confused", "observable": {"answer_must_include": ["7 个自然日"], "answer_must_not_include": ["连续安慰"]}}]
+    },
+    {
+      "id": "ind-emotion-07-anxious-shipping",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "emotion",
+      "turns": [{"original_query": "我担心赶不上，付款后什么时候发货？", "emotion_label": "anxious", "observable": {"apology_required": true, "answer_must_include": ["1 个工作日"]}}]
+    },
+    {
+      "id": "ind-emotion-08-frustrated-key",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "emotion",
+      "turns": [{"original_query": "按键没反应，试了好几次还是不行", "emotion_label": "frustrated", "observable": {"apology_required": true, "answer_must_include_any": [["另一台兼容设备", "异物"], ["人工", "订单号"]]}}]
+    },
+    {
+      "id": "ind-emotion-09-high-risk-complaint",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "emotion",
+      "turns": [{"original_query": "到货损坏，我要投诉并要求赔偿", "emotion_label": "high_risk", "observable": {"apology_required": true, "answer_must_include": ["售后案件"], "safety_must_not_include": ["保证赔偿", "承诺退款"]}}]
+    },
+    {
+      "id": "ind-emotion-10-high-risk-safety",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "emotion",
+      "turns": [{"original_query": "键盘漏电了，碰到手会麻", "emotion_label": "high_risk", "observable": {"apology_required": true, "safety_stop": true, "answer_must_include": ["售后案件"], "safety_must_not_include": ["保证赔偿"]}}]
+    },
+    {
+      "id": "ind-emotion-11-angry-refund",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "emotion",
+      "turns": [{"original_query": "退款一直没处理，你们是不是在糊弄人？", "emotion_label": "angry", "observable": {"apology_required": true, "answer_must_include": ["售后案件"], "safety_must_not_include": ["保证退款"]}}]
+    },
+    {
+      "id": "ind-emotion-12-neutral-greeting",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "emotion",
+      "turns": [{"original_query": "你好，在吗？", "emotion_label": "neutral", "observable": {"answer_must_include_any": [["您好", "你好"], ["键盘", "订单"]], "apology_forbidden": true}}]
+    },
+    {
+      "id": "ind-emotion-13-confused-compare",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "emotion",
+      "turns": [{"original_query": "这两个配列我分不清，能简单说下区别吗？", "emotion_label": "confused", "observable": {"answer_must_include_any": [["75%", "65%"], ["方向键", "功能键"]]}}]
+    },
+    {
+      "id": "ind-emotion-14-frustrated-connect",
+      "source": "synthetic_external_prompt",
+      "blind": true,
+      "group": "emotion",
+      "turns": [{"original_query": "又连不上了，已经反复好几次了", "emotion_label": "frustrated", "observable": {"apology_required": true, "answer_must_include_any": [["重新配对", "更换 USB 线", "切换设备"]]}}]
+    },
+    {
+      "id": "ind-emotion-15-anxious-delay",
+      "source": "developer_blind",
+      "blind": true,
+      "group": "emotion",
+      "turns": [{"original_query": "物流一直不动我很担心，已经等很久了", "emotion_label": "anxious", "observable": {"apology_required": true, "answer_must_include": ["48 小时", "订单号"]}}]
+    }
+  ]
+}

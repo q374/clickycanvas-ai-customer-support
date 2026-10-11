@@ -1,0 +1,1 @@
+"""ClickyCanvas demo application."""

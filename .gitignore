@@ -1,0 +1,43 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Local-only planning notes; keep these out of a public portfolio repository
+MEMORY.md
+TASKS.md
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# JavaScript / build output
+node_modules/
+dist/
+build/
+
+# Local tooling and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Runtime data and logs
+*.log
+data/runtime/
+*.db
+*.sqlite
+*.sqlite3
+data/catalog.snapshot.json
+
+# Common local credential/export files
+*.pem
+*.key
+credentials/
+secrets/

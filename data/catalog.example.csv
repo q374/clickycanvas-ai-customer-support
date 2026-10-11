@@ -1,0 +1,2 @@
+id,handle,title,description,product_type,vendor,price,currency,available_for_sale,layout,switch_type,noise_level,connectivity,compatibility,use_cases,tags,variants,source_url,fetched_at
+demo-75-silent,demo-75-silent,Demo 75 静音机械键盘,适合办公室和共享空间的静音键盘。,mechanical_keyboard,My Demo Store,699,CNY,true,75%,静音线性轴,低,USB-C;Bluetooth 5.1,Windows;macOS,办公室;长时间打字,静音;无线,"[{""id"":""demo-75-silent-black"",""title"":""黑色"",""price"":699,""available_for_sale"":true}]",,

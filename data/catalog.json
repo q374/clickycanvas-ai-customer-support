@@ -1,0 +1,136 @@
+{
+  "store": {
+    "name": "ClickyCanvas",
+    "source": "local_demo_fixture",
+    "source_url": "https://mock.shop/",
+    "fetched_at": "2026-10-08T00:00:00Z"
+  },
+  "products": [
+    {
+      "id": "cc-75-silent",
+      "handle": "canvas-75-silent",
+      "title": "Canvas 75 静音机械键盘",
+      "description": "75% 配列的静音机械键盘，适合办公室和共享空间使用。",
+      "product_type": "mechanical_keyboard",
+      "vendor": "ClickyCanvas",
+      "price": 699,
+      "currency": "CNY",
+      "available_for_sale": true,
+      "layout": "75%",
+      "switch_type": "静音线性轴",
+      "noise_level": "低",
+      "connectivity": ["USB-C", "Bluetooth 5.1"],
+      "compatibility": ["Windows", "macOS", "iPadOS"],
+      "use_cases": ["办公室", "共享空间", "长时间打字"],
+      "tags": ["静音", "无线", "75配列"],
+      "variants": [
+        {"id": "cc-75-silent-black", "title": "黑色", "price": 699, "available_for_sale": true}
+      ]
+    },
+    {
+      "id": "cc-65-wireless",
+      "handle": "canvas-65-wireless",
+      "title": "Canvas 65 无线机械键盘",
+      "description": "紧凑的 65% 配列，保留方向键，适合桌面空间有限的用户。",
+      "product_type": "mechanical_keyboard",
+      "vendor": "ClickyCanvas",
+      "price": 599,
+      "currency": "CNY",
+      "available_for_sale": true,
+      "layout": "65%",
+      "switch_type": "轻段落轴",
+      "noise_level": "中",
+      "connectivity": ["USB-C", "Bluetooth 5.0", "2.4GHz"],
+      "compatibility": ["Windows", "macOS", "Android"],
+      "use_cases": ["居家办公", "桌面空间有限", "移动办公"],
+      "tags": ["无线", "紧凑", "65配列"],
+      "variants": [
+        {"id": "cc-65-wireless-white", "title": "米白色", "price": 599, "available_for_sale": true}
+      ]
+    },
+    {
+      "id": "cc-60-starter",
+      "handle": "canvas-60-starter",
+      "title": "Canvas 60 入门机械键盘",
+      "description": "价格友好的 60% 有线键盘，适合第一次尝试机械键盘的用户。",
+      "product_type": "mechanical_keyboard",
+      "vendor": "ClickyCanvas",
+      "price": 299,
+      "currency": "CNY",
+      "available_for_sale": true,
+      "layout": "60%",
+      "switch_type": "线性轴",
+      "noise_level": "中",
+      "connectivity": ["USB-C"],
+      "compatibility": ["Windows", "macOS"],
+      "use_cases": ["入门", "游戏", "预算有限"],
+      "tags": ["入门", "有线", "60配列"],
+      "variants": [
+        {"id": "cc-60-starter-blue", "title": "深蓝色", "price": 299, "available_for_sale": true}
+      ]
+    },
+    {
+      "id": "cc-tkl-pro",
+      "handle": "canvas-tkl-pro",
+      "title": "Canvas TKL Pro 电竞机械键盘",
+      "description": "保留完整功能区的 TKL 配列，适合游戏和需要快捷键的桌面工作。",
+      "product_type": "mechanical_keyboard",
+      "vendor": "ClickyCanvas",
+      "price": 899,
+      "currency": "CNY",
+      "available_for_sale": true,
+      "layout": "TKL",
+      "switch_type": "快速触发线性轴",
+      "noise_level": "中",
+      "connectivity": ["USB-C", "2.4GHz"],
+      "compatibility": ["Windows", "macOS"],
+      "use_cases": ["游戏", "快捷键", "桌面办公"],
+      "tags": ["电竞", "低延迟", "TKL"],
+      "variants": [
+        {"id": "cc-tkl-pro-black", "title": "黑色", "price": 899, "available_for_sale": true}
+      ]
+    },
+    {
+      "id": "cc-low-profile",
+      "handle": "canvas-low-profile",
+      "title": "Canvas Low Profile 薄型键盘",
+      "description": "薄型键帽和矮轴设计，适合喜欢笔记本手感的用户。",
+      "product_type": "mechanical_keyboard",
+      "vendor": "ClickyCanvas",
+      "price": 749,
+      "currency": "CNY",
+      "available_for_sale": true,
+      "layout": "75%",
+      "switch_type": "矮轴线性轴",
+      "noise_level": "低",
+      "connectivity": ["USB-C", "Bluetooth 5.2"],
+      "compatibility": ["Windows", "macOS", "iPadOS"],
+      "use_cases": ["办公室", "笔记本用户", "长时间打字"],
+      "tags": ["薄型", "静音", "无线"],
+      "variants": [
+        {"id": "cc-low-profile-sand", "title": "沙色", "price": 749, "available_for_sale": true}
+      ]
+    },
+    {
+      "id": "cc-numpad",
+      "handle": "canvas-numpad",
+      "title": "Canvas 独立数字键盘",
+      "description": "可独立使用的数字键盘，适合财务、数据录入和快捷键扩展。",
+      "product_type": "mechanical_keyboard",
+      "vendor": "ClickyCanvas",
+      "price": 259,
+      "currency": "CNY",
+      "available_for_sale": true,
+      "layout": "Numpad",
+      "switch_type": "段落轴",
+      "noise_level": "中",
+      "connectivity": ["USB-C", "Bluetooth 5.0"],
+      "compatibility": ["Windows", "macOS"],
+      "use_cases": ["数据录入", "财务", "快捷键扩展"],
+      "tags": ["数字键盘", "无线", "扩展"],
+      "variants": [
+        {"id": "cc-numpad-gray", "title": "灰色", "price": 259, "available_for_sale": true}
+      ]
+    }
+  ]
+}

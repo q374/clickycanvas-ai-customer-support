@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClickyCanvas 智能客服 Demo</title>
+  <style>
+    :root { color-scheme: light; font-family: Inter, "Microsoft YaHei", sans-serif; --ink: #24211f; --muted: #77716b; --line: #ddd6cd; --panel: #fff; --soft: #f1eee9; --accent: #d45c39; }
+    body { margin: 0; background: #f5f3ef; color: #24211f; }
+    main { width: min(920px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0 48px; }
+    header { background: var(--ink); color: #fff; border-radius: 20px; padding: 24px 28px; margin-bottom: 18px; }
+    .brandline { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .mode { border: 1px solid rgba(255,255,255,.28); border-radius: 999px; padding: 5px 10px; color: #f5ded5; font-size: 12px; white-space: nowrap; }
+    header p { margin: 8px 0 0; color: #d8d2ca; }
+    .notice { background: #fff7df; border: 1px solid #ead898; border-radius: 12px; padding: 12px 16px; font-size: 14px; margin-bottom: 18px; }
+    .data-panel { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-bottom: 18px; }
+    .data-summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .data-summary small { color: var(--muted); display: block; margin-top: 4px; }
+    .data-toggle { background: #e4ded6; color: var(--ink); padding: 7px 11px; font-size: 12px; font-weight: 500; white-space: nowrap; }
+    .data-toggle:hover { background: #d6cec4; }
+    .source-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; margin-top: 13px; }
+    .source-item { border: 1px solid var(--line); border-radius: 10px; padding: 10px 11px; background: #fffaf6; font-size: 13px; }
+    .source-item strong { display: block; margin-bottom: 4px; }
+    .source-item span { color: var(--muted); }
+    .maintenance-note { color: #57504a; font-size: 12px; line-height: 1.6; margin: 12px 0 0; }
+    .catalog-panel { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-bottom: 18px; }
+    .catalog-panel summary { cursor: pointer; font-weight: 700; }
+    .catalog-panel p { color: var(--muted); font-size: 13px; line-height: 1.5; }
+    #chat { min-height: 360px; background: #fff; border-radius: 16px; padding: 18px; box-shadow: 0 8px 30px rgba(36, 33, 31, .06); }
+    .message { max-width: 84%; margin: 12px 0; padding: 12px 14px; border-radius: 14px; white-space: pre-wrap; line-height: 1.6; }
+    .user { margin-left: auto; background: #24211f; color: #fff; }
+    .assistant { background: #f1eee9; }
+    .message-details { margin-top: 8px; color: var(--muted); font-size: 12px; }
+    .message-details summary { cursor: pointer; color: #706860; }
+    .message-details summary:hover { color: var(--ink); }
+    .meta { color: var(--muted); font-size: 12px; margin-top: 8px; }
+    .meta span { display: inline-block; margin: 3px 5px 0 0; }
+    .meta .status { color: #9a4028; font-weight: 700; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 10px; white-space: normal; }
+    .card { border: 1px solid var(--line); border-radius: 10px; padding: 11px; background: var(--panel); font-size: 13px; }
+    .card strong { display: block; margin-bottom: 5px; }
+    .card .id { color: var(--muted); font-size: 11px; margin-bottom: 6px; }
+    .card .detail { color: #57504a; margin-top: 4px; }
+    .empty { margin-top: 10px; padding: 10px 12px; border-radius: 10px; background: #fff7df; color: #6e5a25; font-size: 13px; }
+    .case { margin-top: 12px; padding: 12px; border-radius: 10px; background: #fff1ec; border: 1px solid #efb9a9; color: #6f2f20; font-size: 13px; }
+    .case strong { display: block; margin-bottom: 5px; }
+    .cases-panel { margin-top: 18px; background: var(--panel); border-radius: 16px; padding: 16px 18px; box-shadow: 0 8px 30px rgba(36, 33, 31, .05); }
+    .section-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--ink); }
+    .refresh { background: #e4ded6; color: var(--ink); padding: 7px 11px; font-size: 12px; font-weight: 500; }
+    .refresh:hover { background: #d6cec4; }
+    .case-list { display: grid; gap: 8px; margin-top: 10px; }
+    .case-item { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 13px; background: #fffaf6; }
+    .case-item strong { color: #8d3c29; }
+    .case-item .case-meta { color: var(--muted); font-size: 12px; margin-top: 4px; }
+    .case-empty { color: var(--muted); font-size: 13px; padding-top: 10px; }
+    form { display: flex; gap: 10px; margin-top: 14px; }
+    input { flex: 1; border: 1px solid #cfc7be; border-radius: 10px; padding: 13px; font-size: 15px; }
+    button { border: 0; border-radius: 10px; background: var(--accent); color: #fff; padding: 0 18px; font-weight: 700; cursor: pointer; }
+    button:disabled { opacity: .55; cursor: wait; }
+    button:hover { background: #b9482a; }
+    button:focus-visible, input:focus-visible, summary:focus-visible { outline: 3px solid rgba(212, 92, 57, .35); outline-offset: 2px; }
+    .samples { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+    .samples button { background: #e4ded6; color: #24211f; padding: 8px 12px; font-weight: 500; }
+    .samples button:hover { background: #d6cec4; }
+    .input-hint { color: var(--muted); font-size: 12px; line-height: 1.5; margin: 8px 2px 0; }
+    @media (max-width: 620px) { main { width: min(100% - 20px, 920px); padding-top: 14px; } header { padding: 20px; } .brandline { align-items: flex-start; flex-direction: column; } .data-summary { align-items: flex-start; flex-direction: column; } .source-grid { grid-template-columns: 1fr; } form { flex-direction: column; } form button { min-height: 44px; } .message { max-width: 94%; } .cards { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="brandline"><strong>ClickyCanvas 智能客服 Demo</strong><span id="modeStatus" class="mode">演示数据 · 等待请求</span></div>
+      <p>商品问答 · 政策咨询 · 模拟订单 · 售后转人工</p>
+    </header>
+    <div class="notice">演示环境：商品、政策和订单均为虚构数据，不会真实收款、发货或退款。</div>
+    <section class="data-panel" aria-label="当前数据来源">
+      <div class="data-summary">
+        <div><strong>当前数据来源</strong><small id="dataSourceSummary">正在加载本地数据说明…</small></div>
+        <button id="dataSourceToggle" class="data-toggle" type="button" aria-expanded="false">查看详情</button>
+      </div>
+      <div id="dataSourceBody" hidden>
+        <div id="dataSourceGrid" class="source-grid"></div>
+        <p class="maintenance-note">维护提示：商品规格和价格请通过本地目录导入命令更新；配送、退货、保修和 FAQ 请修改 data/knowledge/*.md。更新后重启 Demo，再运行测试和评估。</p>
+      </div>
+    </section>
+    <details class="catalog-panel" id="catalogPanel">
+      <summary>查看全部演示商品与参数</summary>
+      <p>以下是本地商品目录的完整列表；噪声等级和适用场景是目录标注，不是实测结论。</p>
+      <div id="catalogCards" class="cards">打开后加载商品…</div>
+    </details>
+    <div id="chat" aria-live="polite"></div>
+    <div class="samples">
+      <button type="button" data-message="有没有适合办公室、声音比较小的键盘？">办公室静音推荐</button>
+      <button type="button" data-message="Canvas 75 支持 Mac 吗？">Mac 兼容性</button>
+      <button type="button" data-message="订单 CC-1002 到哪了？验证码 1937">查询模拟订单</button>
+      <button type="button" data-message="订单 CC-1006 到货损坏，我要退款">到货损坏售后</button>
+      <button type="button" data-message="重新开始选购">重新开始选购</button>
+    </div>
+    <form id="form">
+      <input id="message" autocomplete="off" placeholder="输入商品、政策或订单问题，例如：有没有无线键盘？">
+      <button type="submit">发送</button>
+      <button id="clearMemory" type="button" class="refresh" aria-label="清除本次会话保存的选购条件并重新开始">重新开始</button>
+    </form>
+    <p class="input-hint">可以直接描述使用场景、预算、商品型号、政策或订单号；缺少信息时我会继续追问。</p>
+    <section class="cases-panel" aria-label="最近售后案件">
+      <div class="section-heading"><strong>最近售后案件</strong><button id="refreshCases" class="refresh" type="button">刷新</button></div>
+      <div id="caseList" class="case-list"><div class="case-empty">暂无模拟售后案件</div></div>
+    </section>
+  </main>
+  <script>
+    const chat = document.querySelector('#chat');
+    const input = document.querySelector('#message');
+    const form = document.querySelector('#form');
+    const submitButton = form.querySelector('button[type="submit"]');
+    const clearMemoryButton = document.querySelector('#clearMemory');
+    const modeStatus = document.querySelector('#modeStatus');
+    const caseList = document.querySelector('#caseList');
+    const dataSourceSummary = document.querySelector('#dataSourceSummary');
+    const dataSourceToggle = document.querySelector('#dataSourceToggle');
+    const dataSourceBody = document.querySelector('#dataSourceBody');
+    const dataSourceGrid = document.querySelector('#dataSourceGrid');
+    const catalogPanel = document.querySelector('#catalogPanel');
+    const catalogCards = document.querySelector('#catalogCards');
+    let pendingOrderId = null;
+    let shoppingContext = null;
+    const conversationStorageKey = 'clickycanvas_anonymous_conversation_id';
+    let conversationId = null;
+    try { conversationId = localStorage.getItem(conversationStorageKey); } catch (_) {}
+    if (!conversationId) {
+      conversationId = (globalThis.crypto && crypto.randomUUID)
+        ? crypto.randomUUID()
+        : `web-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      try { localStorage.setItem(conversationStorageKey, conversationId); } catch (_) {}
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>'"]/g, ch => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;'}[ch]));
+    }
+
+    function productCardsHtml(products) {
+      return products.map(product => `
+        <div class="card"><strong>${escapeHtml(product.title)}</strong>
+        <div class="id">${escapeHtml(product.id)}</div>
+        <div>${product.price} ${escapeHtml(product.currency)} · ${escapeHtml(product.layout)}</div>
+        <div class="detail">轴体：${escapeHtml(product.switch_type)} · ${escapeHtml(product.noise_level)}噪声</div>
+        <div class="detail">连接：${escapeHtml((product.connectivity || []).join('、') || '未提供')}</div>
+        <div class="detail">兼容：${escapeHtml((product.compatibility || []).join('、') || '未提供')}</div>
+        <div class="detail">适用场景：${escapeHtml((product.use_cases || []).join('、') || '未提供')}</div></div>
+      `).join('');
+    }
+
+    function addMessage(role, text, meta = [], products = [], result = null) {
+      const wrapper = document.createElement('div');
+      wrapper.className = `message ${role}`;
+      wrapper.innerHTML = `<div>${escapeHtml(text)}</div>`;
+      if (products.length) {
+        const cards = document.createElement('div');
+        cards.className = 'cards';
+        cards.innerHTML = productCardsHtml(products);
+        wrapper.appendChild(cards);
+      } else if (result && result.intent === 'PRODUCT_SEARCH' && Array.isArray(result.data?.products) && result.data.products.length === 0) {
+        wrapper.insertAdjacentHTML('beforeend', '<div class="empty">当前演示目录没有匹配结果。您可以调整刚才提出的条件后再问。</div>');
+      }
+      if (result?.escalation_case || result?.data?.case_id) {
+        const caseData = result.escalation_case || {};
+        const caseId = result.data.case_id || caseData.case_id || '未生成';
+        wrapper.insertAdjacentHTML('beforeend', `<div class="case"><strong>已转人工售后</strong><div>案件编号：${escapeHtml(caseId)}</div><div>状态：${escapeHtml(caseData.status || 'open')}</div><div>人工客服会继续确认处理方式。</div></div>`);
+      }
+      if (meta.length) {
+        const details = document.createElement('details');
+        details.className = 'message-details';
+        details.innerHTML = '<summary>查看回答依据</summary>';
+        const footer = document.createElement('div');
+        footer.className = 'meta';
+        footer.innerHTML = meta.map(item => `<span>${escapeHtml(item)}</span>`).join(' · ');
+        details.appendChild(footer);
+        wrapper.appendChild(details);
+      }
+      chat.appendChild(wrapper);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function renderCases(items) {
+      if (!items.length) {
+        caseList.innerHTML = '<div class="case-empty">暂无模拟售后案件</div>';
+        return;
+      }
+      caseList.innerHTML = items.map(item => `
+        <article class="case-item"><strong>${escapeHtml(item.case_id)}</strong>
+          <div>${escapeHtml(item.reason)}${item.order_id ? ` · 订单 ${escapeHtml(item.order_id)}` : ''}</div>
+          <div class="case-meta">状态：${escapeHtml(item.status)} · ${escapeHtml(item.created_at)}</div>
+          <div class="case-meta">${escapeHtml(item.summary)}</div>
+        </article>
+      `).join('');
+    }
+
+    async function loadCases() {
+      try {
+        const response = await fetch('/api/cases?limit=10');
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.detail || '案件加载失败');
+        renderCases(result.cases || []);
+      } catch (error) {
+        caseList.innerHTML = `<div class="case-empty">暂时无法加载案件：${escapeHtml(error.message)}</div>`;
+      }
+    }
+
+    function renderDataSources(payload) {
+      const products = payload.products || {};
+      const knowledge = payload.knowledge || {};
+      const orders = payload.orders || {};
+      const cases = payload.cases || {};
+      dataSourceSummary.textContent = `${products.count || 0} 个本地商品 · ${knowledge.count || 0} 份政策/FAQ · 固定模拟订单`;
+      dataSourceGrid.innerHTML = [
+        ['商品目录', `${products.name || '本地商品目录'} · ${products.file || '本地文件'}`, `来源：${products.source || 'local_import'} · ${products.fetched_at || '未设置更新时间'} · ${products.live ? '实时' : '非实时'}`],
+        ['政策与 FAQ', `${knowledge.name || '本地政策知识库'} · ${knowledge.count || 0} 份文档 · ${knowledge.chunks || 0} 个片段`, `来源：data/knowledge/*.md · ${knowledge.retrieval || '本地检索'}`],
+        ['订单', `${orders.name || '固定模拟订单'} · ${orders.count || 0} 条`, `来源：data/orders.json · ${orders.live ? '实时' : '非实时'}`],
+        ['售后案件', cases.name || '本地模拟售后案件', cases.human_connected ? '已连接真实客服系统' : '只写入本地演示数据库'],
+      ].map(([title, detail, note]) => `<div class="source-item"><strong>${escapeHtml(title)}</strong><div>${escapeHtml(detail)}</div><span>${escapeHtml(note)}</span></div>`).join('');
+    }
+
+    async function loadDataSources() {
+      try {
+        const response = await fetch('/api/data-sources');
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.detail || '数据来源加载失败');
+        renderDataSources(result);
+      } catch (error) {
+        dataSourceSummary.textContent = `数据来源暂时无法加载：${error.message}`;
+      }
+    }
+
+    async function loadCatalog() {
+      try {
+        const response = await fetch('/api/products?limit=20');
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.detail || '商品目录加载失败');
+        catalogCards.innerHTML = productCardsHtml(result.products || []);
+      } catch (error) {
+        catalogCards.textContent = `暂时无法加载商品目录：${error.message}`;
+      }
+    }
+
+    async function sendMessage(message) {
+      const text = message.trim();
+      if (!text) return;
+      const isVerificationReply = Boolean(pendingOrderId && (/验证码/.test(text) || /(?<!\d)\d{4}(?!\d)/.test(text)));
+      const orderIdForReply = isVerificationReply ? pendingOrderId : null;
+      pendingOrderId = null;
+      addMessage('user', text);
+      input.value = '';
+      submitButton.disabled = true;
+      modeStatus.textContent = '正在查询演示数据…';
+      try {
+        const requestBody = {message: text, conversation_id: conversationId};
+        if (orderIdForReply) requestBody.order_id = orderIdForReply;
+        if (shoppingContext) requestBody.shopping_context = shoppingContext;
+        const response = await fetch('/api/chat', {
+          method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(requestBody)
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.detail || '请求失败');
+        if (result.intent === 'ORDER_STATUS' && result.data?.order_id && !result.data?.order) {
+          pendingOrderId = result.data.order_id;
+        }
+        if (result.data?.shopping_context) shoppingContext = result.data.shopping_context;
+        const llm = result.data?.llm;
+        const technicalStatus = llm?.status === 'rewritten' ? 'DeepSeek 已润色' : llm?.status === 'fallback' ? '模型回退 · 使用确定性答案' : llm?.status === 'skipped_high_risk' ? '高风险问题 · 已转人工' : llm?.status === 'skipped_clarification' ? '等待补充推荐条件' : '确定性回答';
+        const status = llm?.status === 'rewritten' ? '已结合智能理解回答' : llm?.status === 'fallback' ? '已使用可靠规则回答' : llm?.status === 'skipped_high_risk' ? '已转人工处理' : llm?.status === 'skipped_clarification' ? '等待补充条件' : '已根据演示数据回答';
+        modeStatus.textContent = status;
+        const extraction = result.data?.shopping_extraction === 'model' ? 'DeepSeek 辅助理解需求' : result.data?.shopping_extraction === 'fallback' ? '需求理解已回退' : null;
+        const traceId = result.data?.trace?.trace_id;
+        const emotion = result.data?.emotion;
+        const emotionMeta = emotion ? [`情绪识别：${emotion.state} · 紧急度：${emotion.urgency}`] : [];
+        const meta = [result.intent, technicalStatus, ...emotionMeta, ...(extraction ? [extraction] : []), ...(result.sources || []), ...(traceId ? [`追踪 ${traceId}`] : [])];
+        addMessage('assistant', result.answer, meta, result.data?.products || [], result);
+        if (result.escalation_case || result.data?.case_id) loadCases();
+      } catch (error) {
+        if (orderIdForReply) pendingOrderId = orderIdForReply;
+        modeStatus.textContent = '请求失败';
+        addMessage('assistant', `暂时无法处理：${error.message}`, ['ERROR']);
+      } finally {
+        submitButton.disabled = false;
+        input.focus();
+      }
+    }
+
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      sendMessage(input.value);
+    });
+    clearMemoryButton.addEventListener('click', async () => {
+      clearMemoryButton.disabled = true;
+      try {
+        const response = await fetch(`/api/conversations/${encodeURIComponent(conversationId)}`, {method: 'DELETE'});
+        if (!response.ok) throw new Error('清除失败');
+        shoppingContext = null;
+        modeStatus.textContent = '会话记忆已清除';
+        addMessage('assistant', '已清除本次会话保存的选购条件。我们可以重新开始。', ['MEMORY CLEARED']);
+      } catch (error) {
+        modeStatus.textContent = `清除失败：${error.message}`;
+      } finally {
+        clearMemoryButton.disabled = false;
+      }
+    });
+    document.querySelectorAll('[data-message]').forEach(button => {
+      button.addEventListener('click', () => sendMessage(button.dataset.message));
+    });
+    document.querySelector('#refreshCases').addEventListener('click', loadCases);
+    dataSourceToggle.addEventListener('click', () => {
+      const expanded = dataSourceToggle.getAttribute('aria-expanded') === 'true';
+      dataSourceToggle.setAttribute('aria-expanded', String(!expanded));
+      dataSourceToggle.textContent = expanded ? '查看详情' : '收起详情';
+      dataSourceBody.hidden = expanded;
+    });
+    catalogPanel.addEventListener('toggle', () => {
+      if (catalogPanel.open) loadCatalog();
+    });
+    addMessage('assistant', '你好，我是 ClickyCanvas 演示客服。你可以问我商品选择、兼容性、配送政策或模拟订单状态。', ['READY · 仅使用演示数据']);
+    loadDataSources();
+    loadCases();
+  </script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+{
+  "version": "1",
+  "source": "synthetic_seed",
+  "cases": [
+    {
+      "id": "multi-turn-office", "stage": "需求理解",
+      "turns": [
+        {"message": "推荐一下", "intent": "PRODUCT_CLARIFY"},
+        {"message": "办公", "intent": "PRODUCT_SEARCH", "ids": ["cc-65-wireless", "cc-75-silent", "cc-low-profile", "cc-tkl-pro"], "context": {"use_case": "办公"}},
+        {"message": "预算800以内", "intent": "PRODUCT_SEARCH", "ids": ["cc-65-wireless", "cc-75-silent", "cc-low-profile"], "context": {"max_price": 800, "use_case": "办公"}}
+      ]
+    },
+    {
+      "id": "hard-quiet-bluetooth", "stage": "候选召回",
+      "turns": [{"message": "办公用，预算800以内，必须安静且带蓝牙", "intent": "PRODUCT_SEARCH", "ids": ["cc-75-silent", "cc-low-profile"], "context": {"noise_level": "低", "connectivity": "Bluetooth"}}]
+    },
+    {
+      "id": "soft-quiet", "stage": "排序",
+      "turns": [{"message": "办公用，预算800以内，希望安静", "intent": "PRODUCT_SEARCH", "ids": ["cc-75-silent", "cc-low-profile", "cc-65-wireless"], "context": {"noise_level": null, "preferences": ["quiet"]}}]
+    },
+    {
+      "id": "negative-bluetooth", "stage": "需求理解",
+      "turns": [{"message": "办公用，预算800以内，不要蓝牙", "intent": "PRODUCT_SEARCH", "ids": [], "contains": ["没有找到"], "context": {"excluded_connectivity": ["Bluetooth"]}}]
+    },
+    {
+      "id": "budget-interval", "stage": "需求理解",
+      "turns": [{"message": "预算500到800，办公", "intent": "PRODUCT_SEARCH", "ids": ["cc-65-wireless", "cc-75-silent", "cc-low-profile"], "context": {"min_price": 500, "max_price": 800}}]
+    },
+    {
+      "id": "ordinal-and-pair", "stage": "回答",
+      "turns": [
+        {"message": "推荐一下", "intent": "PRODUCT_CLARIFY"},
+        {"message": "办公，预算700以内，带蓝牙", "intent": "PRODUCT_SEARCH", "ids": ["cc-65-wireless", "cc-75-silent"]},
+        {"message": "第一款支持Mac吗", "intent": "PRODUCT_DETAIL", "contains": ["cc-65-wireless", "支持 macOS"]},
+        {"message": "这两款哪个更安静", "intent": "PRODUCT_COMPARE", "ids": ["cc-65-wireless", "cc-75-silent"], "contains": ["低于"]}
+      ]
+    },
+    {
+      "id": "ambiguous-pair", "stage": "回答",
+      "turns": [
+        {"message": "办公，预算800以内", "intent": "PRODUCT_SEARCH"},
+        {"message": "这两款哪个更安静", "intent": "PRODUCT_CLARIFY", "contains": ["请指定两款"]}
+      ]
+    },
+    {
+      "id": "missing-reference", "stage": "回答",
+      "turns": [{"message": "第一款支持Mac吗", "intent": "PRODUCT_CLARIFY", "contains": ["不能确定"]}]
+    },
+    {
+      "id": "budget-override", "stage": "需求理解",
+      "turns": [
+        {"message": "办公，预算800以内", "intent": "PRODUCT_SEARCH"},
+        {"message": "预算改成500以内", "intent": "PRODUCT_SEARCH", "ids": [], "context": {"max_price": 500, "use_case": "办公"}}
+      ]
+    },
+    {
+      "id": "connection-override", "stage": "需求理解",
+      "turns": [
+        {"message": "办公，预算800以内，带蓝牙", "intent": "PRODUCT_SEARCH"},
+        {"message": "改成不要蓝牙", "intent": "PRODUCT_SEARCH", "ids": [], "context": {"connectivity": null, "excluded_connectivity": ["Bluetooth"]}}
+      ]
+    },
+    {
+      "id": "reset", "stage": "需求理解",
+      "turns": [
+        {"message": "办公，预算800以内", "intent": "PRODUCT_SEARCH"},
+        {"message": "重新开始选购", "intent": "PRODUCT_CLARIFY", "context": {"max_price": null, "use_case": null, "last_product_ids": []}}
+      ]
+    },
+    {
+      "id": "daily-scene", "stage": "候选召回",
+      "turns": [
+        {"message": "推荐一下", "intent": "PRODUCT_CLARIFY"},
+        {"message": "日常", "intent": "PRODUCT_SEARCH", "ids": ["cc-60-starter", "cc-65-wireless", "cc-75-silent", "cc-low-profile", "cc-tkl-pro"]},
+        {"message": "预算800以内", "intent": "PRODUCT_SEARCH", "ids": ["cc-60-starter", "cc-65-wireless", "cc-75-silent", "cc-low-profile"]}
+      ]
+    },
+    {
+      "id": "order-separated", "stage": "回答",
+      "turns": [
+        {"message": "办公，预算800以内", "intent": "PRODUCT_SEARCH"},
+        {"message": "订单 CC-1002 到哪了？", "intent": "ORDER_STATUS", "contains": ["验证码"], "context": {"use_case": "办公"}},
+        {"message": "验证码 1937", "intent": "ORDER_STATUS", "contains": ["已发货"], "context": {"use_case": "办公"}}
+      ]
+    },
+    {
+      "id": "observed-dorm-gaming-axis", "source": "user_observed_2026-10-09", "stage": "需求理解",
+      "turns": [
+        {"message": "我想买一个打游戏用的键盘", "intent": "PRODUCT_SEARCH", "ids": ["cc-60-starter", "cc-tkl-pro"], "context": {"use_case": "游戏"}},
+        {"message": "就宿舍打游戏", "intent": "PRODUCT_SEARCH", "ids": ["cc-60-starter", "cc-tkl-pro"], "contains": ["宿舍"], "not_same_as_previous": true},
+        {"message": "青轴的键盘有吗?", "intent": "PRODUCT_SEARCH", "ids": [], "contains": ["没有标注青轴"], "context": {"switch_type": "青轴"}, "not_same_as_previous": true}
+      ]
+    },
+    {
+      "id": "axis-inventory-direct", "stage": "商品事实",
+      "turns": [{"message": "有青轴吗", "intent": "PRODUCT_SEARCH", "ids": [], "contains": ["没有标注青轴"]}]
+    },
+    {
+      "id": "unseen-axis-inventory", "stage": "商品事实",
+      "turns": [{"message": "有光轴吗", "intent": "PRODUCT_SEARCH", "ids": [], "contains": ["没有标注光轴"]}]
+    },
+    {
+      "id": "available-axis", "stage": "候选召回",
+      "turns": [{"message": "有段落轴键盘吗", "intent": "PRODUCT_SEARCH", "ids": ["cc-65-wireless"]}]
+    },
+    {
+      "id": "budget-not-required", "stage": "需求理解",
+      "turns": [{"message": "办公室打字用，推荐一款", "intent": "PRODUCT_SEARCH", "ids": ["cc-65-wireless", "cc-75-silent", "cc-low-profile", "cc-tkl-pro"]}]
+    },
+    {
+      "id": "budget-only-full-keyboards", "stage": "候选召回",
+      "turns": [{"message": "想买键盘，500元以内", "intent": "PRODUCT_SEARCH", "ids": ["cc-60-starter"]}]
+    },
+    {
+      "id": "named-mac-detail", "stage": "商品事实",
+      "turns": [{"message": "Canvas 75 支持 Mac 吗", "intent": "PRODUCT_DETAIL", "contains": ["Canvas 75", "支持 macOS"]}]
+    },
+    {
+      "id": "named-switch-detail", "stage": "商品事实",
+      "turns": [{"message": "Canvas 65 是什么轴", "intent": "PRODUCT_DETAIL", "contains": ["轻段落轴"]}]
+    },
+    {
+      "id": "named-open-question", "stage": "商品事实",
+      "turns": [{"message": "Canvas 75 怎么样", "intent": "PRODUCT_DETAIL", "contains": ["699", "静音线性轴", "无法替您断言"]}]
+    },
+    {
+      "id": "unknown-feature", "stage": "回答",
+      "turns": [{"message": "Canvas 75 支持热插拔吗", "intent": "PRODUCT_DETAIL", "contains": ["无法确认"]}]
+    },
+    {
+      "id": "no-budget-gaming", "stage": "需求理解",
+      "turns": [{"message": "预算不限，打游戏", "intent": "PRODUCT_SEARCH", "ids": ["cc-60-starter", "cc-tkl-pro"]}]
+    },
+    {
+      "id": "no-bluetooth-low-budget", "stage": "候选召回",
+      "turns": [{"message": "500以内，不要蓝牙的键盘", "intent": "PRODUCT_SEARCH", "ids": ["cc-60-starter"]}]
+    },
+    {
+      "id": "soft-feature-without-budget", "stage": "需求理解",
+      "turns": [
+        {"message": "推荐一下", "intent": "PRODUCT_CLARIFY"},
+        {"message": "就想要带蓝牙", "intent": "PRODUCT_SEARCH", "ids": ["cc-65-wireless", "cc-75-silent", "cc-low-profile"]}
+      ]
+    },
+    {
+      "id": "soft-quiet-colloquial", "stage": "需求理解",
+      "turns": [{"message": "打游戏，别太响", "intent": "PRODUCT_SEARCH", "ids": ["cc-60-starter", "cc-tkl-pro"], "contains": ["都没有标注低噪声"], "context": {"preferences": ["quiet"]}}]
+    },
+    {
+      "id": "hard-quiet-gaming-conflict", "stage": "候选召回",
+      "turns": [{"message": "打游戏，但必须安静", "intent": "PRODUCT_SEARCH", "ids": [], "contains": ["没有找到"], "context": {"noise_level": "低"}}]
+    },
+    {
+      "id": "axis-condition-change", "stage": "需求理解",
+      "turns": [
+        {"message": "想要青轴键盘", "intent": "PRODUCT_SEARCH", "ids": []},
+        {"message": "改成段落轴吧", "intent": "PRODUCT_SEARCH", "ids": ["cc-65-wireless"], "context": {"switch_type": "段落轴"}}
+      ]
+    },
+    {
+      "id": "named-axis-negative", "stage": "商品事实",
+      "turns": [{"message": "Canvas 75 是青轴吗", "intent": "PRODUCT_DETAIL", "contains": ["未标注青轴", "静音线性轴"]}]
+    },
+    {
+      "id": "named-bluetooth-positive", "stage": "商品事实",
+      "turns": [{"message": "Canvas 75 支持蓝牙吗", "intent": "PRODUCT_DETAIL", "contains": ["支持蓝牙", "Bluetooth 5.1"]}]
+    },
+    {
+      "id": "demonstrative-ambiguous", "stage": "回答",
+      "turns": [
+        {"message": "打游戏用的", "intent": "PRODUCT_SEARCH", "ids": ["cc-60-starter", "cc-tkl-pro"]},
+        {"message": "这款是什么轴", "intent": "PRODUCT_CLARIFY", "contains": ["不能确定"]}
+      ]
+    },
+    {
+      "id": "demonstrative-single", "stage": "回答",
+      "turns": [
+        {"message": "办公，必须薄型", "intent": "PRODUCT_SEARCH", "ids": ["cc-low-profile"]},
+        {"message": "这款是青轴吗", "intent": "PRODUCT_DETAIL", "contains": ["未标注青轴", "矮轴线性轴"]}
+      ]
+    },
+    {
+      "id": "catalog-scope", "stage": "回答",
+      "turns": [{"message": "你们有鼠标吗", "intent": "GENERAL", "contains": ["键盘"]}]
+    }
+  ]
+}

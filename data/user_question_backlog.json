@@ -1,0 +1,26 @@
+{
+  "version": "0.1",
+  "note": "本批为人工设计回归问法，不代表真实用户原话；真实问法按 docs/user_question_collection.md 脱敏后再加入。",
+  "cases": [
+    {"id": "seed-001", "source": "synthetic_seed", "query": "蓝牙配对失败怎么处理", "intent": "POLICY_FAQ", "document": "troubleshooting"},
+    {"id": "seed-002", "source": "synthetic_seed", "query": "有个按键按下去没反应", "intent": "POLICY_FAQ", "document": "troubleshooting"},
+    {"id": "seed-003", "source": "synthetic_seed", "query": "快递两天没动静了，怎么办", "intent": "POLICY_FAQ", "document": "shipping"},
+    {"id": "seed-004", "source": "synthetic_seed", "query": "包裹能送到国外吗", "intent": "POLICY_FAQ", "document": "shipping"},
+    {"id": "seed-005", "source": "synthetic_seed", "query": "今天付款什么时候出库", "intent": "POLICY_FAQ", "document": "shipping"},
+    {"id": "seed-006", "source": "synthetic_seed", "query": "收货一周内可以退吗", "intent": "POLICY_FAQ", "document": "returns"},
+    {"id": "seed-007", "source": "synthetic_seed", "query": "有没有适合苹果电脑的薄键盘？", "intent": "PRODUCT_SEARCH", "document": "keyboard_faq"},
+    {"id": "seed-008", "source": "synthetic_seed", "query": "想找一把带蓝牙、适合办公室的安静键盘", "intent": "PRODUCT_SEARCH", "document": "catalog", "notes": "人工设计：办公室、蓝牙、低噪组合筛选"},
+    {"id": "seed-009", "source": "synthetic_seed", "query": "苹果电脑用，预算 800 元以内的薄型键盘", "intent": "PRODUCT_SEARCH", "document": "catalog", "notes": "人工设计：Mac、预算和薄型条件组合"},
+    {"id": "seed-010", "source": "synthetic_seed", "query": "有没有带数字区的键盘？", "intent": "PRODUCT_SEARCH", "document": "catalog", "notes": "人工设计：数字键盘场景"},
+    {"id": "seed-011", "source": "synthetic_seed", "query": "想要轻一点的 65 配列无线键盘", "intent": "PRODUCT_SEARCH", "document": "catalog", "notes": "人工设计：配列和无线条件组合"},
+    {"id": "seed-012", "source": "synthetic_seed", "query": "cc-low-profile 和 cc-75-silent 哪个更安静", "intent": "PRODUCT_COMPARE", "document": "catalog", "notes": "人工设计：商品对比和噪声字段"},
+    {"id": "seed-013", "source": "synthetic_seed", "query": "付款后一般几天发货", "intent": "POLICY_FAQ", "document": "shipping", "notes": "人工设计：发货时效口语问法"},
+    {"id": "seed-014", "source": "synthetic_seed", "query": "国际地址可以配送吗", "intent": "POLICY_FAQ", "document": "shipping", "notes": "人工设计：海外配送边界"},
+    {"id": "seed-015", "source": "synthetic_seed", "query": "蓝牙配对失败，怎么重新配对", "intent": "POLICY_FAQ", "document": "troubleshooting", "notes": "人工设计：故障处理动作问法"},
+    {"id": "seed-016", "source": "synthetic_seed", "query": "收到货后不满意，可以退货吗？", "intent": "POLICY_FAQ", "document": "returns", "notes": "人工设计：退货期限口语问法"},
+    {"id": "seed-017", "source": "synthetic_seed", "query": "键盘进水后还能走保修吗", "intent": "POLICY_FAQ", "document": "warranty", "notes": "人工设计：进水与保修边界"},
+    {"id": "seed-018", "source": "synthetic_seed", "query": "帮我查 CC-1007，验证码 5146", "intent": "ORDER_STATUS", "document": "orders", "notes": "人工设计：订单查询口语问法"},
+    {"id": "seed-019", "source": "synthetic_seed", "query": "收到货后发现键盘破损，请转人工处理", "intent": "ESCALATE", "document": "after_sales", "notes": "人工设计：到货破损转人工"},
+    {"id": "seed-020", "source": "synthetic_seed", "query": "退款金额有争议，请人工处理", "intent": "ESCALATE", "document": "after_sales", "notes": "人工设计：退款争议转人工"}
+  ]
+}

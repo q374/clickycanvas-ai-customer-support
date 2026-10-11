@@ -1,0 +1,29 @@
+{
+  "version": "0.1",
+  "cases": [
+    {"id": "shipping-01", "query": "可以寄到海外吗", "expected_document": "shipping"},
+    {"id": "shipping-02", "query": "物流一直不动怎么办", "expected_document": "shipping"},
+    {"id": "shipping-03", "query": "订单什么时候交给快递", "expected_document": "shipping"},
+    {"id": "shipping-04", "query": "快递两天没动静了，怎么办", "expected_document": "shipping"},
+    {"id": "shipping-05", "query": "今天付款什么时候出库", "expected_document": "shipping"},
+    {"id": "shipping-06", "query": "包裹能送到国外吗", "expected_document": "shipping"},
+    {"id": "warranty-01", "query": "能保修几个月", "expected_document": "warranty"},
+    {"id": "troubleshooting-01", "query": "按键没反应怎么办", "expected_document": "troubleshooting"},
+    {"id": "troubleshooting-02", "query": "蓝牙连不上怎么办", "expected_document": "troubleshooting"},
+    {"id": "troubleshooting-03", "query": "蓝牙配对失败怎么处理", "expected_document": "troubleshooting"},
+    {"id": "troubleshooting-04", "query": "有个按键按下去没反应", "expected_document": "troubleshooting"},
+    {"id": "returns-01", "query": "退回去多久能退款", "expected_document": "returns"},
+    {"id": "returns-02", "query": "键盘进液了怎么办", "expected_document": "returns"},
+    {"id": "returns-03", "query": "签收后几天可以退", "expected_document": "returns"},
+    {"id": "returns-04", "query": "收货一周内可以退吗", "expected_document": "returns"},
+    {"id": "keyboard-faq-01", "query": "苹果电脑能用吗", "expected_document": "keyboard_faq"},
+    {"id": "keyboard-faq-02", "query": "想要小一点但保留方向键", "expected_document": "keyboard_faq"},
+    {"id": "keyboard-faq-03", "query": "办公室不要吵的键盘", "expected_document": "keyboard_faq"},
+    {"id": "keyboard-faq-04", "query": "有没有适合苹果电脑的薄键盘", "expected_document": "keyboard_faq"},
+    {"id": "shipping-07", "query": "付款后一般几天发货", "expected_document": "shipping"},
+    {"id": "shipping-08", "query": "国际地址可以配送吗", "expected_document": "shipping"},
+    {"id": "troubleshooting-05", "query": "蓝牙配对失败，怎么重新配对", "expected_document": "troubleshooting"},
+    {"id": "returns-05", "query": "收到货后不满意，可以退货吗？", "expected_document": "returns"},
+    {"id": "warranty-02", "query": "键盘进水后还能走保修吗", "expected_document": "warranty"}
+  ]
+}

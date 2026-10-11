@@ -1,0 +1,291 @@
+{
+  "version": "p6.1",
+  "frozen_at": "2026-10-10",
+  "blind_definition": "blind=true 且 source=new_holdout 的问法在冻结前未用于实现设计；source=user_observed 与 source=manual_design 仅作来源对照，不计入默认盲测基线。",
+  "field_definition": {
+    "original_query": "用户原话或脱敏后的原话",
+    "context": "该轮可用的页面上下文；多轮案例通过上轮响应延续",
+    "expected_slots": "期望需求理解槽位",
+    "required_conditions": "返回候选必须满足的硬条件",
+    "expected_product_ids": "期望候选集合及排序；空数组表示应无匹配",
+    "expected_policy_document": "期望唯一主政策文档 ID",
+    "ranking_reason": "固定候选顺序的业务理由",
+    "answer_boundary": "回答必须保留或不得承诺的边界"
+  },
+  "cases": [
+    {
+      "id": "observed-dorm-gaming-axis",
+      "source": "user_observed_2026-10-09",
+      "blind": false,
+      "group": "recommendation",
+      "turns": [
+        {"original_query": "我想买一个打游戏用的键盘", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "游戏"}, "required_conditions": [], "expected_product_ids": ["cc-60-starter", "cc-tkl-pro"], "ranking_reason": "按目录价格从低到高展示游戏整键盘", "answer_boundary": {"must_include": ["Canvas 60"], "must_not_claim": []}},
+        {"original_query": "就宿舍打游戏", "context": "延续上一轮候选", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "游戏"}, "required_conditions": [], "expected_product_ids": ["cc-60-starter", "cc-tkl-pro"], "ranking_reason": "宿舍是环境提示，不自动变成低噪硬条件", "answer_boundary": {"must_include": ["宿舍"], "must_not_claim": ["完全无声"]}},
+        {"original_query": "青轴的键盘有吗？", "context": "延续上一轮候选", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"switch_type": "青轴"}, "required_conditions": [{"field": "switch_type", "op": "includes", "value": "青轴"}], "expected_product_ids": [], "ranking_reason": "目录没有标注青轴时返回无匹配", "answer_boundary": {"must_include": ["没有标注青轴"], "must_not_claim": ["有青轴"]}}
+      ]
+    },
+    {
+      "id": "manual-office-quiet",
+      "source": "manual_design",
+      "blind": false,
+      "group": "recommendation",
+      "turns": [{"original_query": "办公室用，想要安静又能蓝牙连接的键盘", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "办公", "connectivity": "Bluetooth", "preferences": ["quiet"]}, "required_conditions": [{"field": "connectivity", "op": "includes", "value": "Bluetooth"}], "expected_product_ids": ["cc-75-silent", "cc-low-profile"], "ranking_reason": "低噪声候选优先，价格较低者先展示", "answer_boundary": {"must_include": ["Canvas 75"], "must_not_claim": ["完全无声"]}}]
+    },
+    {
+      "id": "manual-return-policy",
+      "source": "manual_design",
+      "blind": false,
+      "group": "policy",
+      "turns": [{"original_query": "签收后不想要了能退吗", "context": "新会话", "expected_intent": "POLICY_FAQ", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "expected_policy_document": "returns", "ranking_reason": "只引用退换货主文档", "answer_boundary": {"must_include": ["7 个自然日"], "must_not_claim": ["自动批准退款"]}}]
+    },
+    {
+      "id": "holdout-office-wireless-small",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "recommendation",
+      "turns": [{"original_query": "共享工位上用，想要无线、别太吵，八百块以内", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "办公", "connectivity": "wireless", "max_price": 800, "preferences": ["quiet"]}, "required_conditions": [{"field": "connectivity", "op": "includes", "value": "Bluetooth"}, {"field": "price", "op": "le", "value": 800}], "expected_product_ids": ["cc-75-silent", "cc-low-profile", "cc-65-wireless"], "ranking_reason": "满足办公和预算后，优先展示低噪或无线候选，价格从低到高", "answer_boundary": {"must_include": ["800"], "must_not_claim": ["完全无声"]}}]
+    },
+    {
+      "id": "holdout-compact-65",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "recommendation",
+      "turns": [{"original_query": "桌面地方很紧，想买 65 配列的无线款", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"layout": "65%", "connectivity": "wireless"}, "required_conditions": [{"field": "layout", "op": "eq", "value": "65%"}], "expected_product_ids": ["cc-65-wireless"], "ranking_reason": "精确匹配 65% 配列", "answer_boundary": {"must_include": ["Canvas 65"], "must_not_claim": []}}]
+    },
+    {
+      "id": "holdout-gaming-entry",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "recommendation",
+      "turns": [{"original_query": "第一次买机械键盘，主要打游戏，预算四百以内", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "游戏", "max_price": 400, "required_tags": ["入门"]}, "required_conditions": [{"field": "price", "op": "le", "value": 400}, {"field": "tags", "op": "includes", "value": "入门"}], "expected_product_ids": ["cc-60-starter"], "ranking_reason": "同时满足入门标签和价格上限", "answer_boundary": {"must_include": ["Canvas 60"], "must_not_claim": []}}]
+    },
+    {
+      "id": "holdout-numpad-finance",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "recommendation",
+      "turns": [{"original_query": "做表格时想加一个独立数字区，有推荐吗", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "数据录入", "layout": "Numpad"}, "required_conditions": [{"field": "layout", "op": "eq", "value": "Numpad"}], "expected_product_ids": ["cc-numpad"], "ranking_reason": "数字区需求只推荐独立数字键盘", "answer_boundary": {"must_include": ["数字键盘"], "must_not_claim": []}}]
+    },
+    {
+      "id": "holdout-mac-low-profile",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "recommendation",
+      "turns": [{"original_query": "苹果电脑用，喜欢笔记本那种薄手感，八百以内", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"compatibility": "macOS", "max_price": 800, "required_tags": ["薄型"]}, "required_conditions": [{"field": "compatibility", "op": "includes", "value": "macOS"}, {"field": "tags", "op": "includes", "value": "薄型"}, {"field": "price", "op": "le", "value": 800}], "expected_product_ids": ["cc-low-profile"], "ranking_reason": "Mac、薄型和预算三项同时满足", "answer_boundary": {"must_include": ["Low Profile"], "must_not_claim": []}}]
+    },
+    {
+      "id": "holdout-office-range",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "recommendation",
+      "turns": [{"original_query": "办公打字，价格大概在 600 到 800 之间", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "办公", "min_price": 600, "max_price": 800}, "required_conditions": [{"field": "price", "op": "ge", "value": 600}, {"field": "price", "op": "le", "value": 800}], "expected_product_ids": ["cc-75-silent", "cc-low-profile"], "ranking_reason": "价格区间内按价格从低到高", "answer_boundary": {"must_include": ["600", "800"], "must_not_claim": []}}]
+    },
+    {
+      "id": "holdout-no-bluetooth",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "recommendation",
+      "turns": [{"original_query": "办公键盘，预算 700 以内，不要蓝牙连接", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "办公", "max_price": 700, "excluded_connectivity": ["Bluetooth"]}, "required_conditions": [{"field": "connectivity", "op": "excludes", "value": "Bluetooth"}, {"field": "price", "op": "le", "value": 700}], "expected_product_ids": [], "ranking_reason": "没有同时满足办公、预算和排除蓝牙的整键盘", "answer_boundary": {"must_include": ["没有找到"], "must_not_claim": ["推荐蓝牙"]}}]
+    },
+    {
+      "id": "holdout-quiet-gaming-no-match",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "no_match",
+      "turns": [{"original_query": "打游戏但一定要低噪声，预算不限", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "游戏", "noise_level": "低", "budget_unlimited": true}, "required_conditions": [{"field": "noise_level", "op": "eq", "value": "低"}], "expected_product_ids": [], "ranking_reason": "目录没有同时标注游戏用途和低噪声的整键盘", "answer_boundary": {"must_include": ["没有找到"], "must_not_claim": ["低噪游戏键盘"]}}]
+    },
+    {
+      "id": "holdout-unknown-axis",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "no_match",
+      "turns": [{"original_query": "目录里有光轴的机械键盘吗", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"switch_type": "光轴"}, "required_conditions": [{"field": "switch_type", "op": "includes", "value": "光轴"}], "expected_product_ids": [], "ranking_reason": "目录未标注光轴", "answer_boundary": {"must_include": ["没有标注光轴"], "must_not_claim": ["有光轴"]}}]
+    },
+    {
+      "id": "holdout-budget-no-match",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "no_match",
+      "turns": [{"original_query": "一百五十元以内的无线整键盘", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"max_price": 150, "connectivity": "wireless"}, "required_conditions": [{"field": "price", "op": "le", "value": 150}, {"field": "connectivity", "op": "includes", "value": "Bluetooth"}], "expected_product_ids": [], "ranking_reason": "目录没有低于该预算的无线整键盘", "answer_boundary": {"must_include": ["没有找到"], "must_not_claim": []}}]
+    },
+    {
+      "id": "holdout-tkl-layout",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "recommendation",
+      "turns": [{"original_query": "我需要保留功能区的 TKL 游戏键盘", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "游戏", "layout": "TKL"}, "required_conditions": [{"field": "layout", "op": "eq", "value": "TKL"}], "expected_product_ids": ["cc-tkl-pro"], "ranking_reason": "精确匹配 TKL 配列", "answer_boundary": {"must_include": ["TKL Pro"], "must_not_claim": []}}]
+    },
+    {
+      "id": "holdout-budget-followup",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "condition_change",
+      "turns": [
+        {"original_query": "先按办公室打字推荐几款", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "办公"}, "required_conditions": [], "expected_product_ids": ["cc-65-wireless", "cc-75-silent", "cc-low-profile", "cc-tkl-pro"], "ranking_reason": "先按办公用途展示候选", "answer_boundary": {"must_include": ["办公"], "must_not_claim": []}},
+        {"original_query": "预算改成 500 元封顶", "context": "沿用上一轮办公条件", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "办公", "max_price": 500}, "required_conditions": [{"field": "price", "op": "le", "value": 500}], "expected_product_ids": [], "ranking_reason": "新预算替换旧预算，办公条件保留", "answer_boundary": {"must_include": ["没有找到"], "must_not_claim": []}}
+      ]
+    },
+    {
+      "id": "holdout-connectivity-followup",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "condition_change",
+      "turns": [
+        {"original_query": "办公用，八百以内，想要蓝牙", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "办公", "max_price": 800, "connectivity": "Bluetooth"}, "required_conditions": [{"field": "connectivity", "op": "includes", "value": "Bluetooth"}], "expected_product_ids": ["cc-65-wireless", "cc-75-silent", "cc-low-profile"], "ranking_reason": "办公预算内的蓝牙候选按价格展示", "answer_boundary": {"must_include": ["蓝牙"], "must_not_claim": []}},
+        {"original_query": "连接方式换成有线，不要无线", "context": "沿用上一轮办公条件", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "办公", "max_price": 800, "connectivity": "USB-C"}, "required_conditions": [{"field": "connectivity", "op": "includes", "value": "USB-C"}, {"field": "connectivity", "op": "excludes", "value": "Bluetooth"}], "expected_product_ids": [], "ranking_reason": "连接条件被修改为有线并排除蓝牙", "answer_boundary": {"must_include": ["没有找到"], "must_not_claim": ["仍然支持蓝牙"]}}
+      ]
+    },
+    {
+      "id": "holdout-reset",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "condition_change",
+      "turns": [
+        {"original_query": "办公，预算 800 以内", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "办公", "max_price": 800}, "required_conditions": [{"field": "price", "op": "le", "value": 800}], "expected_product_ids": ["cc-65-wireless", "cc-75-silent", "cc-low-profile"], "ranking_reason": "办公预算内按目录价格排序", "answer_boundary": {"must_include": ["800"], "must_not_claim": []}},
+        {"original_query": "清空选购条件，重新来", "context": "清空上一轮页面条件", "expected_intent": "PRODUCT_CLARIFY", "expected_slots": {"recommendation_pending": true}, "required_conditions": [], "expected_product_ids": null, "ranking_reason": "清空后重新询问场景或特点", "answer_boundary": {"must_include": ["清空"], "must_not_claim": []}}
+      ]
+    },
+    {
+      "id": "holdout-reference-first",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "product_reference",
+      "turns": [
+        {"original_query": "办公室打字，想要蓝牙，预算 700 以内", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "办公", "max_price": 700, "connectivity": "Bluetooth"}, "required_conditions": [{"field": "connectivity", "op": "includes", "value": "Bluetooth"}], "expected_product_ids": ["cc-65-wireless", "cc-75-silent"], "ranking_reason": "候选按价格从低到高", "answer_boundary": {"must_include": ["Canvas 65"], "must_not_claim": []}},
+        {"original_query": "第一款能接 MacBook 吗", "context": "指向上一轮第一款", "expected_intent": "PRODUCT_DETAIL", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "ranking_reason": "只回答被指代商品的兼容性", "answer_boundary": {"must_include": ["Canvas 65", "支持 macOS"], "must_not_claim": []}}
+      ]
+    },
+    {
+      "id": "holdout-reference-pair",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "product_reference",
+      "turns": [
+        {"original_query": "请列出办公室用、八百以内的蓝牙候选", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "办公", "max_price": 800, "connectivity": "Bluetooth"}, "required_conditions": [], "expected_product_ids": ["cc-65-wireless", "cc-75-silent", "cc-low-profile"], "ranking_reason": "候选按价格排序", "answer_boundary": {"must_include": ["候选"], "must_not_claim": []}},
+        {"original_query": "前两款哪个更适合安静办公", "context": "指向上一轮前两款", "expected_intent": "PRODUCT_COMPARE", "expected_slots": {}, "required_conditions": [], "expected_product_ids": ["cc-65-wireless", "cc-75-silent"], "ranking_reason": "比较已有前两款的噪声字段", "answer_boundary": {"must_include": ["Canvas 65", "Canvas 75"], "must_not_claim": ["绝对无声"]}}
+      ]
+    },
+    {
+      "id": "holdout-named-detail",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "product_reference",
+      "turns": [{"original_query": "Canvas 75 的连接方式和价格是多少", "context": "新会话", "expected_intent": "PRODUCT_DETAIL", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "ranking_reason": "按商品目录字段回答点名商品", "answer_boundary": {"must_include": ["699", "蓝牙"], "must_not_claim": []}}]
+    },
+    {
+      "id": "holdout-unknown-feature",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "product_reference",
+      "turns": [{"original_query": "Canvas 75 能不能热插拔", "context": "新会话", "expected_intent": "PRODUCT_DETAIL", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "ranking_reason": "目录未提供热插拔字段时拒绝猜测", "answer_boundary": {"must_include": ["无法确认"], "must_not_claim": ["支持热插拔", "不支持热插拔"]}}]
+    },
+    {
+      "id": "holdout-ambiguous-reference",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "product_reference",
+      "turns": [
+        {"original_query": "办公用，预算 800 以内", "context": "新会话", "expected_intent": "PRODUCT_SEARCH", "expected_slots": {"use_case": "办公", "max_price": 800}, "required_conditions": [], "expected_product_ids": ["cc-65-wireless", "cc-75-silent", "cc-low-profile"], "ranking_reason": "办公预算内按价格排序", "answer_boundary": {"must_include": ["候选"], "must_not_claim": []}},
+        {"original_query": "这两款哪个更安静", "context": "上一轮超过两款，指代不清", "expected_intent": "PRODUCT_CLARIFY", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "ranking_reason": "不猜测指代对象", "answer_boundary": {"must_include": ["请指定两款"], "must_not_claim": []}}
+      ]
+    },
+    {
+      "id": "holdout-policy-dispatch",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "policy",
+      "turns": [{"original_query": "今天下单后通常什么时候交给快递", "context": "新会话", "expected_intent": "POLICY_FAQ", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "expected_policy_document": "shipping", "ranking_reason": "回答发货时效主文档", "answer_boundary": {"must_include": ["1 个工作日"], "must_not_claim": ["保证明天送达"]}}]
+    },
+    {
+      "id": "holdout-policy-overseas",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "policy",
+      "turns": [{"original_query": "我人在海外，能把包裹寄过去吗", "context": "新会话", "expected_intent": "POLICY_FAQ", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "expected_policy_document": "shipping", "ranking_reason": "配送范围由配送政策回答", "answer_boundary": {"must_include": ["中国大陆"], "must_not_claim": ["可以海外配送"]}}]
+    },
+    {
+      "id": "holdout-policy-return",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "policy",
+      "turns": [{"original_query": "拆封但配件都在，收货几天内还能无理由退", "context": "新会话", "expected_intent": "POLICY_FAQ", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "expected_policy_document": "returns", "ranking_reason": "退货条件由退换货文档回答", "answer_boundary": {"must_include": ["7 个自然日"], "must_not_claim": ["系统直接批准退款"]}}]
+    },
+    {
+      "id": "holdout-policy-warranty",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "policy",
+      "turns": [{"original_query": "正常使用坏了，保修期有多长", "context": "新会话", "expected_intent": "POLICY_FAQ", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "expected_policy_document": "warranty", "ranking_reason": "功能问题和期限由保修文档回答", "answer_boundary": {"must_include": ["12 个月"], "must_not_claim": ["自动免费换新"]}}]
+    },
+    {
+      "id": "holdout-policy-bluetooth",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "policy",
+      "turns": [{"original_query": "无线配对一直失败，下一步怎么排查", "context": "新会话", "expected_intent": "POLICY_FAQ", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "expected_policy_document": "troubleshooting", "ranking_reason": "连接故障由故障排查文档回答", "answer_boundary": {"must_include": ["重新配对"], "must_not_claim": ["一定是键盘坏了"]}}]
+    },
+    {
+      "id": "holdout-policy-unknown",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "policy",
+      "turns": [{"original_query": "你们有没有价格保护政策", "context": "新会话", "expected_intent": "POLICY_FAQ", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "expected_policy_document": null, "ranking_reason": "当前政策库没有价格保护条款", "answer_boundary": {"must_include": ["没有找到明确的政策说明"], "must_not_claim": ["支持保价"]}}]
+    },
+    {
+      "id": "holdout-order-no-code",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "order",
+      "turns": [{"original_query": "帮我看一下 CC-1001 现在到哪了", "context": "新会话", "expected_intent": "ORDER_STATUS", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "ranking_reason": "没有验证码只能提示补充验证", "expected_order": {"state": "needs_code", "state_phrase": "验证码"}, "answer_boundary": {"must_include": ["验证码"], "must_not_claim": ["处理中"]}}]
+    },
+    {
+      "id": "holdout-order-valid",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "order",
+      "turns": [{"original_query": "查询 CC-1003，验证码 6054，物流有更新吗", "context": "新会话", "expected_intent": "ORDER_STATUS", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "ranking_reason": "验证码匹配后返回订单结构化状态", "expected_order": {"state": "verified", "order_id": "CC-1003", "fulfillment_status": "delayed"}, "answer_boundary": {"must_include": ["物流延迟"], "must_not_claim": []}}]
+    },
+    {
+      "id": "holdout-order-invalid",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "order",
+      "turns": [{"original_query": "CC-1004 的验证码我填 1111，能查吗", "context": "新会话", "expected_intent": "ORDER_STATUS", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "ranking_reason": "错误验证码不能泄露订单状态", "expected_order": {"state": "invalid_code", "state_phrase": "不匹配"}, "answer_boundary": {"must_include": ["不匹配"], "must_not_claim": ["已送达"]}}]
+    },
+    {
+      "id": "holdout-order-missing",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "order",
+      "turns": [{"original_query": "查询 CC-9876，验证码 2468", "context": "新会话", "expected_intent": "ORDER_STATUS", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "ranking_reason": "未知订单不能编造状态", "expected_order": {"state": "order_not_found", "state_phrase": "没有找到订单"}, "answer_boundary": {"must_include": ["没有找到订单"], "must_not_claim": ["已发货", "已送达"]}}]
+    },
+    {
+      "id": "holdout-after-sale-damage",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "after_sale",
+      "turns": [{"original_query": "刚收到的键盘外壳裂了，麻烦人工处理", "context": "新会话", "expected_intent": "ESCALATE", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "ranking_reason": "到货损坏进入人工案件", "answer_boundary": {"must_include": ["售后案件"], "must_not_claim": ["直接退款"]}}]
+    },
+    {
+      "id": "holdout-after-sale-refund",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "after_sale",
+      "turns": [{"original_query": "退款金额和我预期不一样，想找人工核对", "context": "新会话", "expected_intent": "ESCALATE", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "ranking_reason": "退款争议必须人工审核", "answer_boundary": {"must_include": ["售后案件"], "must_not_claim": ["已经同意退款"]}}]
+    },
+    {
+      "id": "holdout-after-sale-key",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "after_sale",
+      "turns": [{"original_query": "有一个按键彻底没反应，想转人工", "context": "新会话", "expected_intent": "ESCALATE", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "ranking_reason": "单键故障的售后处理由人工接手", "answer_boundary": {"must_include": ["售后案件"], "must_not_claim": ["一定免费换新"]}}]
+    },
+    {
+      "id": "holdout-after-sale-liquid",
+      "source": "new_holdout",
+      "blind": true,
+      "group": "after_sale",
+      "turns": [{"original_query": "键盘进液后还能不能保修，先帮我找人工", "context": "新会话", "expected_intent": "ESCALATE", "expected_slots": {}, "required_conditions": [], "expected_product_ids": null, "ranking_reason": "进液和保修例外需要人工判断", "answer_boundary": {"must_include": ["售后案件"], "must_not_claim": ["一定在保修范围内"]}}]
+    }
+  ]
+}

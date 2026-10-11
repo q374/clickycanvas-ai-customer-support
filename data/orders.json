@@ -1,0 +1,102 @@
+{
+  "orders": [
+    {
+      "order_id": "CC-1001",
+      "demo_access_code": "4821",
+      "created_at": "2026-10-06",
+      "payment_status": "paid",
+      "fulfillment_status": "processing",
+      "tracking_number": null,
+      "return_eligible_until": "2026-11-05",
+      "issue_type": null,
+      "line_items": [{"product_id": "cc-75-silent", "variant_id": "cc-75-silent-black", "title": "Canvas 75 静音机械键盘", "quantity": 1}],
+      "tracking_events": []
+    },
+    {
+      "order_id": "CC-1002",
+      "demo_access_code": "1937",
+      "created_at": "2026-10-04",
+      "payment_status": "paid",
+      "fulfillment_status": "shipped",
+      "tracking_number": "CCDEMO1002",
+      "return_eligible_until": "2026-11-03",
+      "issue_type": null,
+      "line_items": [{"product_id": "cc-65-wireless", "variant_id": "cc-65-wireless-white", "title": "Canvas 65 无线机械键盘", "quantity": 1}],
+      "tracking_events": [
+        {"occurred_at": "2026-10-05 09:15", "status": "已揽收", "location": "杭州"},
+        {"occurred_at": "2026-10-06 18:20", "status": "运输中", "location": "上海"}
+      ]
+    },
+    {
+      "order_id": "CC-1003",
+      "demo_access_code": "6054",
+      "created_at": "2026-09-30",
+      "payment_status": "paid",
+      "fulfillment_status": "delayed",
+      "tracking_number": "CCDEMO1003",
+      "return_eligible_until": "2026-10-30",
+      "issue_type": "shipping_delay",
+      "line_items": [{"product_id": "cc-low-profile", "variant_id": "cc-low-profile-sand", "title": "Canvas Low Profile 薄型键盘", "quantity": 1}],
+      "tracking_events": [
+        {"occurred_at": "2026-10-01 11:00", "status": "已揽收", "location": "深圳"},
+        {"occurred_at": "2026-10-03 16:40", "status": "转运延迟", "location": "武汉"}
+      ]
+    },
+    {
+      "order_id": "CC-1004",
+      "demo_access_code": "7712",
+      "created_at": "2026-09-20",
+      "payment_status": "paid",
+      "fulfillment_status": "delivered",
+      "tracking_number": "CCDEMO1004",
+      "return_eligible_until": "2026-10-20",
+      "issue_type": null,
+      "line_items": [{"product_id": "cc-60-starter", "variant_id": "cc-60-starter-blue", "title": "Canvas 60 入门机械键盘", "quantity": 1}],
+      "tracking_events": [
+        {"occurred_at": "2026-09-22 10:00", "status": "已送达", "location": "广州"}
+      ]
+    },
+    {
+      "order_id": "CC-1005",
+      "demo_access_code": "3488",
+      "created_at": "2026-08-01",
+      "payment_status": "paid",
+      "fulfillment_status": "delivered",
+      "tracking_number": "CCDEMO1005",
+      "return_eligible_until": "2026-08-31",
+      "issue_type": null,
+      "line_items": [{"product_id": "cc-tkl-pro", "variant_id": "cc-tkl-pro-black", "title": "Canvas TKL Pro 电竞机械键盘", "quantity": 1}],
+      "tracking_events": [
+        {"occurred_at": "2026-08-05 14:00", "status": "已送达", "location": "北京"}
+      ]
+    },
+    {
+      "order_id": "CC-1006",
+      "demo_access_code": "9260",
+      "created_at": "2026-10-02",
+      "payment_status": "paid",
+      "fulfillment_status": "delivered",
+      "tracking_number": "CCDEMO1006",
+      "return_eligible_until": "2026-11-01",
+      "issue_type": "damaged_on_arrival",
+      "line_items": [{"product_id": "cc-75-silent", "variant_id": "cc-75-silent-black", "title": "Canvas 75 静音机械键盘", "quantity": 1}],
+      "tracking_events": [
+        {"occurred_at": "2026-10-04 12:30", "status": "已送达", "location": "成都"}
+      ]
+    },
+    {
+      "order_id": "CC-1007",
+      "demo_access_code": "5146",
+      "created_at": "2026-10-05",
+      "payment_status": "paid",
+      "fulfillment_status": "shipped",
+      "tracking_number": "CCDEMO1007",
+      "return_eligible_until": "2026-11-04",
+      "issue_type": "cancel_request",
+      "line_items": [{"product_id": "cc-numpad", "variant_id": "cc-numpad-gray", "title": "Canvas 独立数字键盘", "quantity": 1}],
+      "tracking_events": [
+        {"occurred_at": "2026-10-05 15:30", "status": "已发货", "location": "苏州"}
+      ]
+    }
+  ]
+}
