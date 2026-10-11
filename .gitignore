@@ -41,3 +41,6 @@ data/catalog.snapshot.json
 *.key
 credentials/
 secrets/
+
+# Local private demo material
+docs/p6.7_demo_script.md

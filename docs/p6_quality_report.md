@@ -1,6 +1,6 @@
 # P6 质量验证报告
 
-状态：P6.1—P6.6 已完成；P6.6 人工盲评为单人 `owner_blind_review`。本文档是本阶段唯一结果入口；本轮数字来自固定本地演示数据和开发者本人评审，不代表真实顾客满意度。
+状态：P6.1—P6.6 已完成；P6.6 人工盲评为单评审内部盲评。本文档是本阶段唯一结果入口；本轮数字来自固定本地演示数据和单评审复核，不代表真实顾客满意度。
 
 ## 目标
 
@@ -111,7 +111,7 @@ python scripts/evaluate_simulated_experience.py --mode deterministic
 
 自动挑战集与人工盲评分开报告。自动挑战集冻结 60 个案例、70 个对话轮次，覆盖 paraphrase、mixed_context、boundary、emotion 四类；修复后 deterministic 案例通过率 96.7%、轮次通过率 97.1%、安全边界违规 0，DeepSeek 案例通过率 83.3%、轮次通过率 85.7%、安全边界违规 0。逐轮结果位于被 Git 忽略的 `data/runtime/p6_independent_*.json`。
 
-人工盲评表为 `docs/independent_review_sheet.md`，从四类各抽取 3 题，共 12 题。评审者只看顾客输入和 A/B 回答，没有查看模型名称、内部意图或自动评估结果；评审者为项目本人，因此证据等级为 `owner_blind_review`，不能称为独立用户研究。
+人工盲评表为 `docs/independent_review_sheet.md`，从四类各抽取 3 题，共 12 题。评审者只看顾客输入和 A/B 回答，没有查看模型名称、内部意图或自动评估结果；本轮为单评审内部盲评，证据等级为 `single_reviewer_blind_review`，不能称为独立用户研究。
 
 | 人工盲评指标 | 结果 |
 | --- | ---: |
